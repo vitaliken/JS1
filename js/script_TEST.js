@@ -58,6 +58,7 @@ console.log(personalMovieDB);
 
 
 /////////////////////////////////////
+МЕТОДЫ СТРОК
 
 
 const str = 'test';
@@ -164,8 +165,15 @@ for (let key in options) {
     }
 }
 
+//перебор всех значений объекта без вложенных
+for (let key in options) {
+    console.log(`Свойство ${key} имеет значение ${options[key]}`);
+}
+
 
 //узнать кол-во ключей объекта
+//сначала созжает массив из ключей, 
+//а потом выводит кол-во этих ключей
 console.log(Object.keys(options).length)
 
 
@@ -184,7 +192,7 @@ console.log(a);
 ////////////////////////////////////////////////////
 МАССИВЫ
 
-//удаляет последний элемент массива
+//удаляет последний элемент массива 
 const arr = [1, 2, 3, 6, 8];
 arr.pop();
 console.log(arr);
@@ -204,6 +212,8 @@ for(let i = 0; i < arr.length; i++) {
 
 
 //еще один способ ПЕРЕБОР
+//ТОЛЬКО ДЛЯ МАССИВОВ, ПСЕВДОМАССИВОВ, СТРОК, (MAP, SET)
+//МОЖНО ПРЕРВАТЬ МАССИВ
 const arr = [1, 2, 3, 6, 8];
 for (let value of arr) {
     console.log(value)
@@ -216,6 +226,7 @@ console.log(arr.length)
 
 
 //перебор массива с выполнением функции CALLBACK
+//НЕЛЬЗЯ ПРЕРВАТЬ МАССИВ
 const arr = [1, 2, 3, 6, 8];
 //item - тот элемент который мы сейчас перебираем
 //i - номер по порядку
@@ -257,3 +268,579 @@ console.log(arr);
 function compareNum(a, b) {
     return a - b;
 }
+
+
+
+
+
+/////////////////////////////////////////////////
+КОПИРОВАНИЕ ОБЪЕКТОВ
+
+const mainObj = {
+    a: 5,
+    b: 1
+}
+
+//при копировании вложенность не скопируется
+function copy (mainObj) {
+    let objCopy = {};
+
+    let key;
+    for (key in mainObj) {
+        objCopy[key] = mainObj[key];
+    }
+    return objCopy;
+}
+
+const numbers = {
+    a: 2,
+    b: 5,
+    c: {
+        x: 7,
+        y: 4
+    }
+
+}
+
+const newNumbers = copy(numbers);
+
+newNumbers.a = 10;
+ 
+console.log(newNumbers);//измененный объект
+console.log(numbers);//исходный объект
+
+
+//Объединение объектов
+const numbers = {
+    a: 2,
+    b: 5,
+    c: {
+        x: 7,
+        y: 4
+    }
+
+}
+
+const add = {
+    d: 17,
+    e: 20
+}
+
+console.log(Object.assign(numbers, add));//новый объединенный объект
+console.log(Object.assign({}, add));//клонировать объект add
+
+
+
+
+
+//////////////////////////////////////////////
+КОПИРОВАНИЕ МАССИВОВ
+
+const oldArray = ['a', 'b', 'c'];
+
+const newArray = oldArray.slice();
+newArray[1] = '123123'//изменение копии
+
+console.log(oldArray);
+console.log(newArray);
+
+
+
+
+
+//////////////////////////////////////////////
+КОПИРОВАНИЕ МАССИВОВ
+ОПЕРАТОР РАЗВАРОТА - spread оператор
+
+const video = ['youtube', 'vimeo', 'rutube'];
+const blogs = ['wordpress', 'livejournal', 'blogger'];
+const internet = [...video, ...blogs, 'vk', 'facebook']; //spread оператор
+
+console.log(internet);
+
+
+//еще пример
+function log(a, b, c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+
+const num = [2, 5, 7]//передадим значения как аргументы ф log
+log(...num);
+
+
+//создание копии массива с помощью spread оператора
+const array = ['a', 'b'];
+const newArray2 = [...array];
+newArray2[0] = 'sdfsdf';
+
+console.log(array);
+console.log(newArray2);
+
+
+//создание копии объекта с помощью spread оператора
+const q = {
+    one: 1,
+    two: 2
+};
+
+const newObj2 = {...q};
+newObj2.one = 'fwedx2e23rx23';
+
+console.log(q);
+console.log(newObj2);
+
+
+
+
+//////////////////////////////////////////////////////
+ЗАДАЧИ НА РАБОТУ С ОБЪЕКТАМИ (35)
+
+const personalPlanPeter = {
+    name: "Peter",
+    age: "29",
+    skills: {
+        languages: ['ru', 'eng'],
+        programmingLangs: {
+            js: '20%',
+            php: '10%'
+        },
+        exp: '1 month'
+    },
+    showAgeAndLangs: function(obj) {
+        const {age} = obj;
+        const {languages} = obj.skills;
+        let str = `Мне ${age} и я владею языками: `;
+
+        languages.forEach(function(lang) {
+            str += `${lang.toUpperCase()} `;
+        });
+
+        return str;
+    }
+};
+
+function showExperience(plan) {
+    const {exp} = plan.skills;
+    return exp;
+}
+
+function showProgrammingLangs(plan) {
+    let str = '';
+    const {programmingLangs} = plan.skills;
+    for (let key in programmingLangs) {
+        str += `Язык ${key} изучен на ${programmingLangs[key]}\n`;
+    }
+    return str;
+}
+showProgrammingLangs(personalPlanPeter);
+
+
+//////////////////////////////////////////////////////
+ЗАДАЧИ НА РАБОТУ С МАССИВАМИ (35)
+
+const family = ['Peter', 'Ann', 'Alex', 'Linda'];
+function showFamily(arr) {
+    if (arr.length == 0) {
+        return `Семья пуста`;
+    }
+    
+    let str = (arr.join(' '));
+    return `Семья состоит из: ${str} `;
+}
+console.log(showFamily(family));
+
+const favoriteCities = ['liSBon', 'ROME', 'miLan', 'Dublin'];
+function standardizeStrings(arr) {
+    for (let value of arr) {
+        console.log(`${value.toLowerCase()}`);
+    }
+}
+
+// ИЛИ ВТОРОЕ РЕШЕНИЕ:
+// function standardizeStrings(arr) {
+//     arr.forEach(city => {
+//         console.log(city.toLowerCase())
+//     })
+// }
+standardizeStrings(favoriteCities);
+
+
+//////////////////////////////////////////////////////
+ЗАДАЧИ НА РАБОТУ С МАССИВАМИ 2 (35)
+РАЗВОРОТ СТРОКИ
+
+const someString = 'This is some strange string';
+
+function reverse(str) {
+    if (typeof(str) != 'string') {
+        return `Ошибка!`;
+    } else {
+        const Nstr = [...str];
+        return Nstr.reverse().join('');
+    }
+}
+reverse(someString);
+
+const baseCurrencies = ['USD', 'EUR'];
+const additionalCurrencies = ['UAH', 'RUB', 'CNY'];
+
+function availableCurr(arr, missingCurr) {
+    let arrN = [...arr];
+
+    if (arrN.length === 0) {
+        return `Нет доступных валют`;
+    } else {
+        let result = 'Доступные валюты:\n';
+        for (let value of arrN) {
+            if (value === missingCurr) {
+                continue;
+            } 
+            result += `${value}\n`;
+        }
+        return result;
+    }
+}
+availableCurr(['UAH','CNY', 'RUB', 'CNY'], 'CNY');
+
+
+////////////////////////////////////////
+ЦИКЛ В ЦИКЛЕ
+
+for (let i = 0; i < 3; i++) {
+    console.log(i);
+    for(let j = 0; j < 3; j++){
+        console.log(j);
+    }
+}
+
+
+//вывод звездочек
+let result = '';
+let length = 7;
+
+for (let i = 1; i < length; i++) {
+    for (let j = 0; j < i; j++){
+        result+= '*';
+    }
+    result+= '\n';
+}
+
+console.log(result);
+
+
+//прерывание цикла с меткой
+first: for (let i = 0; i < 3; i++) {
+    console.log(`first: ${i}`);
+    for(let j = 0; j < 3; j++){
+        console.log(`second: ${j}`);
+        for(let k = 0; k < 3; k++){
+            if (k === 2) continue first;
+            console.log(`third: ${k}`);
+        }
+    }
+}
+
+
+///////////////////////////////////////////////
+ЗАДАЧИ ПРО ЦИКЛЫ
+// Место для первой задачи
+function firstTask() {
+    for (let i = 5; i < 11 ; i++) {
+        console.log(i);
+    }
+}
+
+// Место для второй задачи
+function secondTask() {
+    for (let i = 20; i > 9 ; i--) {
+        if (i === 13)break;
+            console.log(i);
+    }    
+}
+
+// Место для третьей задачи
+function thirdTask() {
+    for (let i = 2; i < 11 ; i++) {
+        if (i % 2 === 0){
+            console.log(i);
+        }
+    }
+}
+
+// Место для четвертой задачи
+
+function fourthTask() {
+    let i = 2
+    while (i < 16) {
+        ++i;
+        if (i % 2 === 0) {
+            continue;
+        } else {
+            console.log(i);
+        }
+    } 
+}
+
+// Место для пятой задачи
+
+function fifthTask() {
+    const arrayOfNumbers = [];
+    for (let i = 5; i < 11 ; i++) {
+        arrayOfNumbers[i - 5] = i;
+    }
+    console.log(arrayOfNumbers);
+    
+    
+    // Не трогаем
+    return arrayOfNumbers;
+}
+
+
+/////////////////////////////////////////////////////////
+ЕЩЕ ЗАДАЧИ ПРО ЦИКЛЫ
+
+// Место для первой задачи
+function firstTask() {
+    // Значения массива менять нельзя, тут он проверяется автоматически именно на эти значения
+    const arr = [3, 5, 8, 16, 20, 23, 50];
+    const result = arr.slice();
+    console.log(result);//для себя
+
+    // Не трогаем
+    return result;
+}
+
+// Место для второй задачи
+function secondTask() {
+    // Значения массива менять нельзя, тут он проверяется автоматически именно на эти значения
+    const data = [5, 10, 'Shopping', 20, 'Homework'];
+
+    for (let i = 0; i < data.length ; i++) {
+        if (typeof(data[i]) === "number"){
+            data[i] = data[i] * 2;
+        } else if (typeof(data[i]) === "string") {
+            data[i] = data[i] + ' - done';
+        }
+    }
+    console.log(data);//для себя
+    
+    // Не трогаем
+    return data;
+}
+
+// Место для третьей задачи
+function thirdTask() {
+    // Значения массива менять нельзя, тут он проверяется автоматически именно на эти значения
+    const data = [5, 10, 'Shopping', 20, 'Homework'];
+    const result = data.reverse();
+    console.log(data);
+    
+    
+    // Не трогаем
+    return result;
+}
+
+
+/////////////////////////////////////////////////////////
+ВЫВОД ЗВЕЗДОЧЕК - ПИРАМИДА
+
+const lines = 4;
+let result = '';
+
+for (let i = 0; i <= lines; i++) {
+    for (let j = 0; j < lines - i; j++) {
+        result += " ";
+    }
+    for (let j = 0; j < 2 * i + 1; j++) {
+        result += "*";
+    }
+    result += "\n";
+}
+
+console.log(result);
+
+
+
+
+
+///////////////////////////////////////////////////////////
+ВАЖНОСТЬ RETURN
+
+
+const usdCurr = 28;
+const discount = 0.9;
+
+function convert(amount, curr) {
+    return amount * curr;
+}
+
+function promotion(result) {
+    console.log(result * discount);
+}
+
+promotion(convert(500, usdCurr));
+
+
+
+
+
+////////////////////////////////////////////////////////
+ЗАДАЧИ ПО ФУНКЦИЯМ 27
+
+
+// Место для первой задачи
+function sayHello(name) {
+    return `Привет, ${name}`
+}
+
+// Место для второй задачи
+function returnNeighboringNumbers(a) {
+    let b = a - 1;
+    let c = a + 1;
+    return [b, a, c];
+}
+console.log(returnNeighboringNumbers(5));//для себя
+
+// Место для третьей задачи
+function getMathResult(a, b) {
+    str = '';
+    if (typeof(b) === 'string' || b !== Math.abs(b) || b === 0) {
+        return a;
+    }
+    if (typeof(a) === 'number' && typeof(b) === 'number') {
+        for (let i = 0; i < b ; i++) {
+            str += (a * (i + 1)) + "---";
+        }
+        return str.slice(0, -3);
+    }
+}
+
+console.log(getMathResult(5, 3));
+
+
+
+
+
+
+////////////////////////////////////////////////////////
+ЗАДАЧИ ПО ФУНКЦИЯМ 29
+
+// Место для первой задачи
+function calculateVolumeAndArea(a) {
+    if (typeof(a) !== 'number' || a < 0 || !Number.isInteger(a)) {
+        return `При вычислении произошла ошибка`;
+    } else {
+        let s = 6 * a * a;
+        let v = a * a * a;
+        return `Объем куба: ${v}, площадь всей поверхности: ${s}`;
+    }
+}
+console.log(calculateVolumeAndArea(5));
+
+
+// Место для второй задачи
+function getCoupeNumber(a) {
+    if (typeof(a) === 'number' && (a ^ 0) === a && a > 0 && a <= 36) {
+        for (let i = 4; i <= 36; i = i + 4) {
+            if (a <= i) {
+                return Math.ceil(i / 4);
+            }
+        }
+    }
+    if (typeof(a) === 'number' && (a ^ 0) === a && (a === 0 || a > 36)) {
+        return `Таких мест в вагоне не существует`
+    } else {
+        return `Ошибка. Проверьте правильность введенного номера места`
+    }
+}
+console.log(getCoupeNumber(5));
+
+
+
+
+
+////////////////////////////////////////////////////////
+ЗАДАЧИ ПО ФУНКЦИЯМ 29 (2)
+
+
+// Место для первой задачи
+function getTimeFromMinutes(a) {
+    let hour;
+    let h = Math.floor(a / 60);
+    let m = a - (h * 60);
+
+    if (typeof(a) === 'string' || !Number.isInteger(a) || a !== Math.abs(a)) {
+        return `Ошибка, проверьте данные`;
+    }
+
+    if (h >= 1 && h < 2) {
+        hour = `час`;
+    } else if (h >= 2 && h <= 4) {
+        hour = `часа`;
+    } else {
+        hour = `часов`;
+    }
+
+    return `Это ${h} ${hour} и ${m} минут`;
+}
+console.log(getTimeFromMinutes(-100));
+
+
+// Место для второй задачи
+function findMaxNumber(a, b, c, d) {
+    if (typeof(a) !== 'number' || typeof(b) !== 'number' || typeof(c) !== 'number' || typeof(d) !== 'number') {
+        return 0;
+    } else {
+        const arr = [a, b, c, d];
+        return Math.max(...arr);
+    }
+}
+console.log(findMaxNumber(1, 3242, 423, 2342));
+
+
+//////////////////////////////////////////////////////
+ФИБОНАЧЧИ
+function fib(num) {
+    if (typeof(num) !== 'number' || num <= 0 || !Number.isInteger(num)) {
+        return "";
+    }
+
+    let result = '';
+    let first = 0;
+    let second = 1;
+
+    for (let i = 0; i < num; i++) {
+        if (i + 1 === num) {
+            result += `${first}`;
+            // Без пробела в конце
+        } else {
+            result += `${first} `;
+        }
+
+        let third = first + second;
+        first = second;
+        second = third;
+    }
+
+    return result;
+}
+console.log(fib(5));
+
+
+
+
+
+///////////////////////////////////////////////////////
+СОЗДАНИЕ ПРОТОТИПА ОБЪЕКТА
+
+
+//1 способ: (устаревший)
+john.__proto__ = soldier;
+
+//2 способ:
+Object.setPrototypeOf(john, soldier);
+
+//3 способ:
+const john = Object.create(soldier);
