@@ -57,6 +57,9 @@ if (personalMovieDB.count < 10) {
 console.log(personalMovieDB);
 
 
+
+
+
 /////////////////////////////////////
 МЕТОДЫ СТРОК
 
@@ -437,6 +440,9 @@ function showProgrammingLangs(plan) {
 showProgrammingLangs(personalPlanPeter);
 
 
+
+
+
 //////////////////////////////////////////////////////
 ЗАДАЧИ НА РАБОТУ С МАССИВАМИ (35)
 
@@ -465,6 +471,9 @@ function standardizeStrings(arr) {
 //     })
 // }
 standardizeStrings(favoriteCities);
+
+
+
 
 
 //////////////////////////////////////////////////////
@@ -505,6 +514,9 @@ function availableCurr(arr, missingCurr) {
 availableCurr(['UAH','CNY', 'RUB', 'CNY'], 'CNY');
 
 
+
+
+
 ////////////////////////////////////////
 ЦИКЛ В ЦИКЛЕ
 
@@ -541,6 +553,9 @@ first: for (let i = 0; i < 3; i++) {
         }
     }
 }
+
+
+
 
 
 ///////////////////////////////////////////////
@@ -596,6 +611,9 @@ function fifthTask() {
     // Не трогаем
     return arrayOfNumbers;
 }
+
+
+
 
 
 /////////////////////////////////////////////////////////
@@ -667,7 +685,6 @@ console.log(result);
 
 ///////////////////////////////////////////////////////////
 ВАЖНОСТЬ RETURN
-
 
 const usdCurr = 28;
 const discount = 0.9;
@@ -764,7 +781,6 @@ console.log(getCoupeNumber(5));
 ////////////////////////////////////////////////////////
 ЗАДАЧИ ПО ФУНКЦИЯМ 29 (2)
 
-
 // Место для первой задачи
 function getTimeFromMinutes(a) {
     let hour;
@@ -798,6 +814,9 @@ function findMaxNumber(a, b, c, d) {
     }
 }
 console.log(findMaxNumber(1, 3242, 423, 2342));
+
+
+
 
 
 //////////////////////////////////////////////////////
@@ -893,6 +912,9 @@ function isBudgetEnough(data) {
     }
 }
 isBudgetEnough(shoppingMallData);
+
+
+
 
 
 ///////////////////////////////////////////////////////
@@ -1065,3 +1087,11 @@ function transferWaitors(data) {
 }
 
 transferWaitors(restorantData);
+
+
+
+
+
+/////////////////////////////////////////////////////
+42. Получение элементов со страницы
+
