@@ -844,3 +844,224 @@ Object.setPrototypeOf(john, soldier);
 
 //3 способ:
 const john = Object.create(soldier);
+
+
+
+
+
+///////////////////////////////////////////////////////
+37 1 Продвинутая задача на работу с объектами и массивами
+
+const shoppingMallData = {
+    shops: [
+        {
+            width: 10,
+            length: 5
+        },
+        {
+            width: 15,
+            length: 7
+        },
+        {
+            width: 20,
+            length: 5
+        },
+        {
+            width: 8,
+            length: 10
+        }
+    ],
+    height: 5,
+    moneyPer1m3: 30,
+    budget: 50000
+};
+
+function isBudgetEnough(data) {
+    let s = 0;
+    let v = 0;
+
+    data.shops.forEach( shop => {
+        s += shop.width * shop.length;
+    });
+
+    v += s * data.height;
+
+    if (data.budget >= v * data.moneyPer1m3) {
+        return 'Бюджета достаточно';
+    } else {
+        return'Бюджета недостаточно';
+    }
+}
+isBudgetEnough(shoppingMallData);
+
+
+///////////////////////////////////////////////////////
+37 2  Продвинутая задача на работу с объектами и массивами
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
+
+function sortStudentsByGroups(arr) {
+    arr.sort();
+    const command = [];
+    let size = 3; 
+    let lenghtArr = arr.length - (Math.floor(arr.length / size)) * size;
+    let rest = '';
+    
+    for (let i = 0; i < Math.floor(arr.length / size); i++) {
+        command[i] = arr.slice((i*size), (i*size) + size);
+    }
+
+    if (lenghtArr === 0) {
+        rest = `-`;
+    } else if(lenghtArr === 1) {
+        rest = arr.slice(-lenghtArr);
+    } else if (lenghtArr === 2) {
+        rest = arr.slice(-lenghtArr).join(', ');
+    }
+
+    let str = `Оставшиеся студенты: ${rest}`;
+    command.push(str);
+    console.log(command);
+    return command;
+
+}
+sortStudentsByGroups(students);
+
+
+//решение автора
+// const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
+
+// function sortStudentsByGroups(arr) {
+//     arr.sort();
+//     const a = [], b = [], c = [], rest = [];
+
+//     for (let i = 0; i < arr.length; i++) {
+//         if (i < 3) {
+//             a.push(arr[i]);
+//         } else if (i < 6) {
+//             b.push(arr[i]);
+//         } else if (i < 9) {
+//             c.push(arr[i]);
+//         } else {
+//             rest.push(arr[i]);
+//         }
+//     }
+//     return [a,b,c, `Оставшиеся студенты: ${rest.length === 0 ? '-' : rest.join(', ')}`]
+// }
+
+// sortStudentsByGroups(students);
+
+
+
+
+
+/////////////////////////////////////////////////////
+Динамическая типизация в JS
+
+//toString:
+1///метод String
+console.log(typeof(String(null)));
+console.log(typeof(String(4)));
+
+2///сложение со строкой
+console.log(typeof(5 + ''));
+
+
+//toNumber:
+1///метод Number
+console.log(typeof(Number('4')));
+
+2///Унарный +
+console.log(typeof(+'4'));
+
+3///метод parseInt
+console.log(typeof(parseInt('15px', 10)));//10 - десятичная система
+
+
+//toBoolean
+1///Всегда false:
+0, '', null, undefined, NaN
+
+2//метод Boolean
+console.log(typeof(Boolean(4)));
+
+3//двойное отрицание
+console.log(typeof(!!'4444'));
+
+
+
+
+
+/////////////////////////////////////////////////////////
+40. Замыкание и лексическое окружение
+
+let number = 5; debugger
+
+function logNumber() {
+    let number = 4; debugger
+    console.log(number);
+}
+
+number = 6;
+
+logNumber();
+
+
+
+
+
+//////////////////////////////////////////////////////////
+
+const restorantData = {
+    menu: [
+        {
+            name: 'Salad Caesar',
+            price: '14$'
+        },
+        {
+            name: 'Pizza Diavola',
+            price: '9$'
+        },
+        {
+            name: 'Beefsteak',
+            price: '17$'
+        },
+        {
+            name: 'Napoleon',
+            price: '7$'
+        }
+    ],
+    waitors: [
+        {name: 'Alice', age: 22}, {name: 'John', age: 24}
+    ],
+    averageLunchPrice: '20$',
+    openNow: true
+};
+
+function isOpen(prop) {
+    let answer = '';
+    prop ? answer = 'Открыто' : answer = 'Закрыто';
+
+    return answer;
+}
+
+console.log(isOpen(restorantData.openNow));
+
+function isAverageLunchPriceTrue(fDish, sDish, average) {
+    if (+fDish.price.slice(0, -1) + (+sDish.price.slice(0, -1)) < +average.slice(0, -1)) {
+        return 'Цена ниже средней';
+    } else {
+        return 'Цена выше средней';
+    }
+}
+
+console.log(isAverageLunchPriceTrue(restorantData.menu[0], restorantData.menu[1], restorantData.averageLunchPrice));
+
+function transferWaitors(data) {
+    const copy = JSON.parse(JSON.stringify(data));
+
+    copy.waitors[0] = {name: 'Mike', age: 32};
+    return copy;
+}
+
+transferWaitors(restorantData);
