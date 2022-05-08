@@ -1087,11 +1087,3 @@ function transferWaitors(data) {
 }
 
 transferWaitors(restorantData);
-
-
-
-
-
-/////////////////////////////////////////////////////
-42. Получение элементов со страницы
-
